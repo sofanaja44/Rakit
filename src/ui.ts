@@ -3,7 +3,7 @@ import pc from "picocolors";
 import type { RakitTheme, TokenUsage } from "./types.js";
 
 export { clack };
-export const VERSION = "0.1.1";
+export const VERSION = "0.1.2";
 
 // ── Picocolors styling helpers ─────────────────────────────────────────
 export const ui = {

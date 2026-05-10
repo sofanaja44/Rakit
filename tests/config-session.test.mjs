@@ -1,12 +1,20 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { promises as fs } from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import {
   getDefaultConfig,
   getDefaultModelForProvider,
   redactConfig,
 } from '../dist/config.js';
-import { getProjectSessionPath } from '../dist/session.js';
+import {
+  clearProjectSession,
+  getProjectSessionPath,
+  getProjectSessionSummary,
+  loadProjectSession,
+  saveProjectSession,
+} from '../dist/session.js';
 
 test('default config uses OpenRouter provider and model', () => {
   const config = getDefaultConfig();
@@ -52,4 +60,47 @@ test('project session path is stable per resolved project path', () => {
 
   assert.equal(getProjectSessionPath(projectPath), getProjectSessionPath(path.resolve(projectPath)));
   assert.match(getProjectSessionPath(projectPath), /sessions[/\\][a-f0-9]{16}\.json$/);
+});
+
+test('project session save, load, summarize, and clear lifecycle works', async () => {
+  const projectPath = await fs.mkdtemp(path.join(os.tmpdir(), 'rakit-session-test-'));
+
+  try {
+    const config = {
+      provider: 'anthropic',
+      apiKey: 'sk-ant-test-placeholder',
+      model: 'claude-opus-4-7',
+      systemPrompt: 'system prompt',
+      temperature: 0.7,
+      theme: 'rich',
+    };
+    const messages = [
+      { role: 'system', content: 'ignored system' },
+      { role: 'user', content: 'hello' },
+      { role: 'assistant', content: 'hi' },
+    ];
+
+    const sessionPath = await saveProjectSession(messages, config, projectPath);
+    assert.equal(sessionPath, getProjectSessionPath(projectPath));
+
+    const session = await loadProjectSession(projectPath);
+    assert.ok(session);
+    assert.equal(session.projectPath, path.resolve(projectPath));
+    assert.equal(session.provider, 'anthropic');
+    assert.equal(session.model, 'claude-opus-4-7');
+    assert.deepEqual(session.messages, messages.slice(1));
+
+    const summary = await getProjectSessionSummary(projectPath);
+    assert.equal(summary.exists, true);
+    assert.equal(summary.path, sessionPath);
+    assert.equal(summary.messageCount, 2);
+    assert.equal(summary.model, 'claude-opus-4-7');
+    assert.match(summary.updatedAt ?? '', /^\d{4}-\d{2}-\d{2}T/);
+
+    await clearProjectSession(projectPath);
+    assert.equal(await loadProjectSession(projectPath), undefined);
+    assert.deepEqual(await getProjectSessionSummary(projectPath), { path: sessionPath, exists: false });
+  } finally {
+    await fs.rm(projectPath, { recursive: true, force: true });
+  }
 });

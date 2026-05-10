@@ -8,6 +8,15 @@ Format mengikuti pola sederhana: `Unreleased` untuk pekerjaan berikutnya, lalu r
 
 - Belum ada perubahan.
 
+## v0.1.2
+
+Patch stabilisasi untuk session persistence dan executable CLI.
+
+### Added
+
+- Test lifecycle session project untuk save, load, summary, dan clear.
+- Smoke test CLI untuk `--version`, `--help`, `about`, dan `doctor`.
+
 ## v0.1.1
 
 Patch stabilisasi untuk release hygiene dan version safety.
