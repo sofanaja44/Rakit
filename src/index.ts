@@ -43,7 +43,7 @@ function parseLimitOption(rawLimit: string | undefined): number | undefined {
 const program = new Command();
 
 program
-  .name("rakit1")
+  .name("rakit")
   .description("Rakit — CLI coding assistant berbasis OpenRouter dan OpenAI Codex")
   .version(VERSION)
   .argument("[prompt...]", "Prompt langsung untuk AI")
@@ -101,7 +101,7 @@ configCommand
     ].join("\n");
 
     clack.note(configBody, "Konfigurasi Aktif");
-    line(`  ${ui.dim(icons.info)} Ubah dengan: ${code("rakit1 config set <key> <value>")}`);
+    line(`  ${ui.dim(icons.info)} Ubah dengan: ${code("rakit config set <key> <value>")}`);
     blank();
   });
 
@@ -114,7 +114,7 @@ configCommand
 
 configCommand
   .command("set")
-  .description("Set konfigurasi. Contoh: rakit1 config set apiKey sk-or-xxx")
+  .description("Set konfigurasi. Contoh: rakit config set apiKey sk-or-xxx")
   .argument("<key>", "provider | apiKey | model | systemPrompt | temperature | theme")
   .argument("<value...>", "Nilai config")
   .action(async (key: string, valueParts: string[]) => {

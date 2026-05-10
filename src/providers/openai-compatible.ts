@@ -38,7 +38,7 @@ function getBaseUrl(options: OpenAICompatibleOptions): string {
 function getApiKey(config: RakitConfig, options: OpenAICompatibleOptions): string | undefined {
   const apiKey = config.apiKey ?? options.apiKey ?? process.env[options.apiKeyEnv];
   if (options.requiresApiKey && !apiKey) {
-    throw new Error(`API key ${options.providerName} belum diset. Jalankan: rakit1 login atau rakit1 config set apiKey <${options.apiKeyEnv}>`);
+    throw new Error(`API key ${options.providerName} belum diset. Jalankan: rakit login atau rakit config set apiKey <${options.apiKeyEnv}>`);
   }
   return apiKey;
 }

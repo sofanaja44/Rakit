@@ -30,7 +30,7 @@ Baseline awal Rakit CLI.
 
 ### Added
 
-- CLI `rakit1` untuk prompt langsung, chat interaktif, dan mode TUI.
+- CLI `rakit` untuk prompt langsung, chat interaktif, dan mode TUI.
 - Provider OpenRouter, OpenAI Codex, Anthropic, Gemini, Groq, dan Ollama.
 - Login API key/OAuth dan konfigurasi provider/model/theme.
 - Streaming respons dan footer status token/context/cost.

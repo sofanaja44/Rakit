@@ -21,7 +21,7 @@ type StreamCallbacks = {
 function getApiKey(config: RakitConfig): string {
   const apiKey = config.apiKey ?? process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    throw new Error("API key Gemini belum diset. Jalankan: rakit1 login atau rakit1 config set apiKey <GEMINI_API_KEY>");
+    throw new Error("API key Gemini belum diset. Jalankan: rakit login atau rakit config set apiKey <GEMINI_API_KEY>");
   }
   return apiKey;
 }

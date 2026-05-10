@@ -314,7 +314,7 @@ async function loadModelsFromActiveConfig(): Promise<LoadedModels> {
 
   if (config.provider === "openrouter") {
     if (!config.apiKey) {
-      throw new Error("API key OpenRouter belum diset. Jalankan: rakit1 login");
+      throw new Error("API key OpenRouter belum diset. Jalankan: rakit login");
     }
 
     const openRouterModels = await loadOpenRouterModels(config);
@@ -328,7 +328,7 @@ async function loadModelsFromActiveConfig(): Promise<LoadedModels> {
 
   if (config.provider === "openai-codex") {
     if (!(await hasOpenAICodexCredentials())) {
-      throw new Error("OpenAI Codex belum login. Jalankan: rakit1 login lalu pilih OpenAI Codex.");
+      throw new Error("OpenAI Codex belum login. Jalankan: rakit login lalu pilih OpenAI Codex.");
     }
 
     return {
@@ -428,7 +428,7 @@ export async function listModels(options: ModelSearchOptions): Promise<void> {
 
   printModelResults(shownModels, filteredModels.length);
   blank();
-  info(`Untuk memakai model tertentu: ${code("rakit1 config set model <model-id>")}`);
+  info(`Untuk memakai model tertentu: ${code("rakit config set model <model-id>")}`);
 }
 
 // ── Public: model picker (interactive) ─────────────────────────────────

@@ -87,7 +87,7 @@ async function clackLoginWizard(): Promise<void> {
     await runModelPicker(undefined, { defaultFreeOnly: provider.key === "openrouter" });
   } catch (error) {
     printError(`Gagal mengambil daftar model: ${formatError(error)}`);
-    info(`Login tetap tersimpan. Coba lagi nanti dengan: ${code("rakit1 models --select")}`);
+    info(`Login tetap tersimpan. Coba lagi nanti dengan: ${code("rakit models --select")}`);
   }
 
   clack.outro("Login selesai! 🎉");
@@ -351,7 +351,7 @@ export async function runLoginWizard(question?: QuestionFn): Promise<void> {
         await runModelPicker(question, { defaultFreeOnly: provider.key === "openrouter" });
       } catch (error) {
         printError(`Gagal mengambil daftar model: ${formatError(error)}`);
-        info(`Login tetap tersimpan. Coba lagi nanti dengan: ${code("rakit1 models --select")}`);
+        info(`Login tetap tersimpan. Coba lagi nanti dengan: ${code("rakit models --select")}`);
       }
     }
   } catch (errorValue) {

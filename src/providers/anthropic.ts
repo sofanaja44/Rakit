@@ -6,7 +6,7 @@ const DEFAULT_MAX_TOKENS = 16_000;
 function getApiKey(config: RakitConfig): string {
   const apiKey = config.apiKey ?? process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    throw new Error("API key Anthropic belum diset. Jalankan: rakit1 login atau rakit1 config set apiKey <ANTHROPIC_API_KEY>");
+    throw new Error("API key Anthropic belum diset. Jalankan: rakit login atau rakit config set apiKey <ANTHROPIC_API_KEY>");
   }
   return apiKey;
 }

@@ -2,7 +2,7 @@
 
 Rakit adalah CLI coding assistant sederhana untuk terminal. Saat ini mendukung OpenRouter API key, OpenAI Codex OAuth untuk akun ChatGPT Plus/Pro, Anthropic, Gemini, Groq, dan Ollama lokal.
 
-> Catatan: command `rakit` sudah dipakai di komputer/package lain. Untuk clone ini command terminalnya memakai `rakit1`.
+> Catatan: command `rakit` sudah dipakai di komputer/package lain. Untuk clone ini command terminalnya memakai `rakit`.
 
 ## Fitur
 
@@ -34,7 +34,7 @@ Rakit adalah CLI coding assistant sederhana untuk terminal. Saat ini mendukung O
 
 ```bash
 npm install -g rakit-cli
-rakit1 --help
+rakit --help
 ```
 
 ## Install lokal untuk development
@@ -45,14 +45,14 @@ npm run build
 npm link
 ```
 
-Setelah `npm link`, command `rakit1` bisa dipakai secara global di komputer lokal.
+Setelah `npm link`, command `rakit` bisa dipakai secara global di komputer lokal.
 
 ## Konfigurasi
 
 Cara paling mudah untuk login provider:
 
 ```bash
-rakit1 login
+rakit login
 ```
 
 Pilihan login:
@@ -75,17 +75,17 @@ Di mode chat interaktif juga bisa pakai:
 Cara manual set API key OpenRouter:
 
 ```bash
-rakit1 config set apiKey sk-or-xxxx
+rakit config set apiKey sk-or-xxxx
 ```
 
 Atau pakai environment variable (nilai env akan override apiKey config hanya untuk proses itu):
 
 ```bash
-OPENROUTER_API_KEY=sk-or-xxxx rakit1 "halo"
-ANTHROPIC_API_KEY=sk-ant-xxxx rakit1 "halo"
-GEMINI_API_KEY=xxxx rakit1 "halo"
-GROQ_API_KEY=gsk_xxxx rakit1 "halo"
-OLLAMA_BASE_URL=http://localhost:11434/v1 rakit1 "halo"
+OPENROUTER_API_KEY=sk-or-xxxx rakit "halo"
+ANTHROPIC_API_KEY=sk-ant-xxxx rakit "halo"
+GEMINI_API_KEY=xxxx rakit "halo"
+GROQ_API_KEY=gsk_xxxx rakit "halo"
+OLLAMA_BASE_URL=http://localhost:11434/v1 rakit "halo"
 ```
 
 Environment variable opsional untuk optimasi:
@@ -98,25 +98,25 @@ RAKIT_MODELS_CACHE_TTL_MS=21600000  # cache daftar model OpenRouter 6 jam; 0 = n
 Cari model berdasarkan provider aktif:
 
 ```bash
-rakit1 models
+rakit models
 ```
 
 Cari model gratis:
 
 ```bash
-rakit1 models --free
+rakit models --free
 ```
 
 Cari model gratis dengan kata kunci:
 
 ```bash
-rakit1 models --free llama
+rakit models --free llama
 ```
 
 Pilih model lewat wizard panah dan simpan ke config:
 
 ```bash
-rakit1 models --select
+rakit models --select
 ```
 
 Wizard langsung membuka menu model tanpa wajib mengetik search dulu. Gunakan tombol panah untuk cari/filter, toggle gratis/semua, skip, atau memilih model; model yang sedang aktif ditandai `(aktif)`.
@@ -124,35 +124,35 @@ Wizard langsung membuka menu model tanpa wajib mengetik search dulu. Gunakan tom
 Pilih model Codex setelah login OpenAI Codex:
 
 ```bash
-rakit1 models --select codex
+rakit models --select codex
 ```
 
 Atau set model manual:
 
 ```bash
-rakit1 config set model meta-llama/llama-3.1-8b-instruct:free
-rakit1 config set model gpt-5.1-codex-mini
+rakit config set model meta-llama/llama-3.1-8b-instruct:free
+rakit config set model gpt-5.1-codex-mini
 ```
 
 Pilih theme UI:
 
 ```bash
-rakit1 config set theme rich       # default, footer lengkap
-rakit1 config set theme compact    # footer lebih pendek
-rakit1 config set theme minimal    # footer paling ringkas
-rakit1 config set theme no-footer  # tanpa footer pinned
+rakit config set theme rich       # default, footer lengkap
+rakit config set theme compact    # footer lebih pendek
+rakit config set theme minimal    # footer paling ringkas
+rakit config set theme no-footer  # tanpa footer pinned
 ```
 
 Lihat config aktif:
 
 ```bash
-rakit1 config get
+rakit config get
 ```
 
 Lihat lokasi config:
 
 ```bash
-rakit1 config path
+rakit config path
 ```
 
 Default config disimpan di:
@@ -172,25 +172,25 @@ Token OAuth OpenAI Codex disimpan di:
 Prompt langsung:
 
 ```bash
-rakit1 "buatkan contoh fungsi login express"
+rakit "buatkan contoh fungsi login express"
 ```
 
 Mode chat interaktif:
 
 ```bash
-rakit1
+rakit
 ```
 
 Atau:
 
 ```bash
-rakit1 chat
+rakit chat
 ```
 
 Mode TUI layar penuh:
 
 ```bash
-rakit1 tui
+rakit tui
 ```
 
 Mode ini masuk ke alternate screen sehingga terminal biasa tersembunyi selama sesi, dengan header, area chat, dan footer status Rakit.
@@ -198,7 +198,7 @@ Mode ini masuk ke alternate screen sehingga terminal biasa tersembunyi selama se
 Cek environment/config:
 
 ```bash
-rakit1 doctor
+rakit doctor
 ```
 
 Perintah dalam mode chat:
@@ -231,7 +231,7 @@ Perintah dalam mode chat:
 
 ## Daftar dan pencarian model
 
-`rakit1 models` menampilkan model dari provider aktif.
+`rakit models` menampilkan model dari provider aktif.
 
 - OpenRouter: daftar model diambil langsung dari OpenRouter memakai API key aktif.
 - OpenAI Codex: daftar model Codex yang dikenal Rakit ditampilkan dan memakai kuota subscription ChatGPT.
@@ -239,11 +239,11 @@ Perintah dalam mode chat:
 Contoh:
 
 ```bash
-rakit1 models --free qwen
-rakit1 models --free gemini
-rakit1 models llama --limit 10
-rakit1 models --select --free
-rakit1 models --select codex
+rakit models --free qwen
+rakit models --free gemini
+rakit models llama --limit 10
+rakit models --select --free
+rakit models --select codex
 ```
 
 Di mode chat interaktif, ketik `/models` untuk langsung membuka picker panah, atau `/models llama` dan `/models codex` untuk membuka picker dengan filter awal.
@@ -253,7 +253,7 @@ Di mode chat interaktif, ketik `/models` untuk langsung membuka picker panah, at
 Jalankan Rakit dari folder project:
 
 ```bash
-rakit1
+rakit
 ```
 
 Contoh prompt:

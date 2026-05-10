@@ -108,7 +108,7 @@ export async function runDoctor(): Promise<void> {
   blank();
 
   if (!activeProviderReady) {
-    line(`  ${ui.dim(icons.info)} Setup: ${code("rakit1 login")}`);
+    line(`  ${ui.dim(icons.info)} Setup: ${code("rakit login")}`);
   }
 
   if (!isPinnedFooterSupported()) {

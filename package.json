@@ -5,8 +5,7 @@
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "rakit1": "dist/index.js",
-    "raki1": "dist/index.js"
+    "rakit": "dist/index.js"
   },
   "files": [
     "dist",

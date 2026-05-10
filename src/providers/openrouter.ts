@@ -88,14 +88,14 @@ function buildOpenRouterError(status: number, statusText: string, data: { error?
   if (status === 429) {
     return new Error(
       `OpenRouter error 429${code}: ${message}. Ini biasanya rate limit/quota dari model/provider. `
-        + "Coba tunggu sebentar, pilih model lain dengan /models atau rakit1 models --select --free, "
+        + "Coba tunggu sebentar, pilih model lain dengan /models atau rakit models --select --free, "
         + "atau pakai model berbayar/isi credits OpenRouter.",
     );
   }
 
   if (status === 401 || status === 403) {
     return new Error(
-      `OpenRouter error ${status}${code}: ${message}. Cek API key dengan rakit1 login.`,
+      `OpenRouter error ${status}${code}: ${message}. Cek API key dengan rakit login.`,
     );
   }
 
@@ -181,7 +181,7 @@ export async function chatWithOpenRouter(
 
   if (!apiKey) {
     throw new Error(
-      "API key OpenRouter belum diset. Jalankan: rakit1 login atau rakit1 config set apiKey <OPENROUTER_API_KEY>",
+      "API key OpenRouter belum diset. Jalankan: rakit login atau rakit config set apiKey <OPENROUTER_API_KEY>",
     );
   }
 
@@ -226,7 +226,7 @@ export async function streamOpenRouter(
 
   if (!apiKey) {
     throw new Error(
-      "API key OpenRouter belum diset. Jalankan: rakit1 login atau rakit1 config set apiKey <OPENROUTER_API_KEY>",
+      "API key OpenRouter belum diset. Jalankan: rakit login atau rakit config set apiKey <OPENROUTER_API_KEY>",
     );
   }
 

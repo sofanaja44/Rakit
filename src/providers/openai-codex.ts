@@ -408,7 +408,7 @@ async function getValidOpenAICodexCredentials(): Promise<OpenAICodexCredentials>
   const credentials = await getOpenAICodexCredentials();
 
   if (!credentials) {
-    throw new Error("OpenAI Codex belum login. Jalankan: rakit1 login lalu pilih OpenAI Codex.");
+    throw new Error("OpenAI Codex belum login. Jalankan: rakit login lalu pilih OpenAI Codex.");
   }
 
   if (credentials.expires > Date.now() + TOKEN_REFRESH_BUFFER_MS) {
@@ -562,7 +562,7 @@ async function buildCodexHttpError(response: Response): Promise<Error> {
   }
 
   if (response.status === 401 || response.status === 403) {
-    return new Error(`OpenAI Codex auth gagal: ${message}. Jalankan ulang: rakit1 login`);
+    return new Error(`OpenAI Codex auth gagal: ${message}. Jalankan ulang: rakit login`);
   }
 
   if (response.status === 429 || /usage_limit|rate_limit/i.test(code)) {
