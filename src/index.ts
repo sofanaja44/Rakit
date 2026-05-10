@@ -79,31 +79,38 @@ program
 
 const configCommand = program.command("config").description("Kelola konfigurasi Rakit");
 
+async function printActiveConfig(): Promise<void> {
+  const config = await loadConfig();
+  const redacted = redactConfig(config);
+
+  blank();
+  line(`  ${ui.cyan(icons.ai)} ${ui.bold(ui.cyan("Config Rakit"))}`);
+  blank();
+
+  const configBody = [
+    `${ui.dim("path")}          ${getConfigPath()}`,
+    `${ui.dim("provider")}      ${String(redacted.provider)}`,
+    `${ui.dim("apiKey")}        ${String(redacted.apiKey)}`,
+    `${ui.dim("model")}         ${String(redacted.model)}`,
+    `${ui.dim("temperature")}   ${String(redacted.temperature)}`,
+    `${ui.dim("theme")}         ${String(redacted.theme)}`,
+    `${ui.dim("system")}        ${String(redacted.systemPrompt)}`,
+  ].join("\n");
+
+  clack.note(configBody, "Konfigurasi Aktif");
+  line(`  ${ui.dim(icons.info)} Ubah dengan: ${code("rakit config set <key> <value>")}`);
+  blank();
+}
+
 configCommand
   .command("get")
   .description("Tampilkan konfigurasi aktif")
-  .action(async () => {
-    const config = await loadConfig();
-    const redacted = redactConfig(config);
+  .action(printActiveConfig);
 
-    blank();
-    line(`  ${ui.cyan(icons.ai)} ${ui.bold(ui.cyan("Config Rakit"))}`);
-    blank();
-
-    const configBody = [
-      `${ui.dim("path")}          ${getConfigPath()}`,
-      `${ui.dim("provider")}      ${String(redacted.provider)}`,
-      `${ui.dim("apiKey")}        ${String(redacted.apiKey)}`,
-      `${ui.dim("model")}         ${String(redacted.model)}`,
-      `${ui.dim("temperature")}   ${String(redacted.temperature)}`,
-      `${ui.dim("theme")}         ${String(redacted.theme)}`,
-      `${ui.dim("system")}        ${String(redacted.systemPrompt)}`,
-    ].join("\n");
-
-    clack.note(configBody, "Konfigurasi Aktif");
-    line(`  ${ui.dim(icons.info)} Ubah dengan: ${code("rakit config set <key> <value>")}`);
-    blank();
-  });
+configCommand
+  .command("list")
+  .description("Tampilkan konfigurasi aktif (alias dari get)")
+  .action(printActiveConfig);
 
 configCommand
   .command("path")
@@ -114,9 +121,9 @@ configCommand
 
 configCommand
   .command("set")
-  .description("Set konfigurasi. Contoh: rakit config set apiKey sk-or-xxx")
+  .description("Set konfigurasi. Contoh: rakit config set provider openrouter")
   .argument("<key>", "provider | apiKey | model | systemPrompt | temperature | theme")
-  .argument("<value...>", "Nilai config")
+  .argument("<value...>", "Nilai config. Provider valid: openrouter, openai-codex, anthropic, gemini, groq, ollama")
   .action(async (key: string, valueParts: string[]) => {
     const value = valueParts.join(" ");
     await setConfigValue(key, value);

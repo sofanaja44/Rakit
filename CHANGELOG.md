@@ -8,6 +8,19 @@ Format mengikuti pola sederhana: `Unreleased` untuk pekerjaan berikutnya, lalu r
 
 - Belum ada perubahan.
 
+## v0.1.3
+
+Patch stabilisasi untuk doctor dan config UX.
+
+### Added
+
+- Hint setup provider aktif yang lebih spesifik di `rakit doctor`.
+- Command `rakit config list` sebagai alias dari `rakit config get`.
+
+### Changed
+
+- Help `rakit config set` dibuat lebih jelas dengan contoh provider valid.
+
 ## v0.1.2
 
 Patch stabilisasi untuk session persistence dan executable CLI.

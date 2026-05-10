@@ -18,7 +18,7 @@ async function runCli(args) {
 test('CLI prints version', async () => {
   const { stdout } = await runCli(['--version']);
 
-  assert.equal(stdout.trim(), '0.1.2');
+  assert.equal(stdout.trim(), '0.1.3');
 });
 
 test('CLI help uses rakit command name', async () => {
@@ -31,7 +31,7 @@ test('CLI help uses rakit command name', async () => {
 test('CLI about command prints runtime info', async () => {
   const { stdout } = await runCli(['about']);
 
-  assert.match(stdout, /Version\s+0\.1\.2/);
+  assert.match(stdout, /Version\s+0\.1\.3/);
   assert.match(stdout, /Runtime\s+Node\.js/);
 });
 
@@ -39,6 +39,14 @@ test('CLI doctor command prints environment status', async () => {
   const { stdout } = await runCli(['doctor']);
 
   assert.match(stdout, /Rakit doctor/);
-  assert.match(stdout, /version\s+0\.1\.2/);
+  assert.match(stdout, /version\s+0\.1\.3/);
   assert.match(stdout, /active ready/);
+});
+
+test('CLI config list aliases config get', async () => {
+  const { stdout } = await runCli(['config', 'list']);
+
+  assert.match(stdout, /Config Rakit/);
+  assert.match(stdout, /provider/);
+  assert.match(stdout, /model/);
 });

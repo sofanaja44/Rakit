@@ -2,7 +2,6 @@
 
 Rakit adalah CLI coding assistant sederhana untuk terminal. Saat ini mendukung OpenRouter API key, OpenAI Codex OAuth untuk akun ChatGPT Plus/Pro, Anthropic, Gemini, Groq, dan Ollama lokal.
 
-> Catatan: command `rakit` sudah dipakai di komputer/package lain. Untuk clone ini command terminalnya memakai `rakit`.
 
 ## Fitur
 

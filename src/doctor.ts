@@ -70,6 +70,23 @@ function getProviderReadiness(config: RakitConfig, codexLoggedIn: boolean): Prov
   ];
 }
 
+function getProviderSetupHint(provider: ProviderName): string {
+  switch (provider) {
+    case "openrouter":
+      return `Set ${code("OPENROUTER_API_KEY")} atau jalankan ${code("rakit login")}.`;
+    case "openai-codex":
+      return `Jalankan ${code("rakit login")} lalu pilih OpenAI Codex untuk login OAuth.`;
+    case "anthropic":
+      return `Set ${code("ANTHROPIC_API_KEY")} atau jalankan ${code("rakit login")}.`;
+    case "gemini":
+      return `Set ${code("GEMINI_API_KEY")} atau jalankan ${code("rakit login")}.`;
+    case "groq":
+      return `Set ${code("GROQ_API_KEY")} atau jalankan ${code("rakit login")}.`;
+    case "ollama":
+      return `Pastikan Ollama berjalan di ${code(process.env.OLLAMA_BASE_URL ?? "http://localhost:11434/v1")} atau set ${code("OLLAMA_BASE_URL")}.`;
+  }
+}
+
 export async function runDoctor(): Promise<void> {
   const config = await loadConfig();
   const redacted = redactConfig(config);
@@ -107,8 +124,8 @@ export async function runDoctor(): Promise<void> {
   keyValue("pinned footer", yesNo(isPinnedFooterSupported()));
   blank();
 
-  if (!activeProviderReady) {
-    line(`  ${ui.dim(icons.info)} Setup: ${code("rakit login")}`);
+  if (!activeProviderReady || config.provider === "ollama") {
+    line(`  ${ui.dim(icons.info)} Setup ${activeProvider?.label ?? config.provider}: ${getProviderSetupHint(config.provider)}`);
   }
 
   if (!isPinnedFooterSupported()) {
